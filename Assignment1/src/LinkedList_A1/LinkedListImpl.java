@@ -26,7 +26,7 @@ public class LinkedListImpl implements LIST_Interface {
 	@Override
 	public boolean insert(Node n, int index) {
 
-		if (index > listSize + 1 || index < 0) { // returns false for faulty
+		if (index > listSize || index < 0) { // returns false for faulty
 													// index values
 			return false;
 		}
