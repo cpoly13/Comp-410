@@ -95,20 +95,6 @@ public class LinkedListImpl implements LIST_Interface {
 				    listSize--; 
 				    return true;
 			
-			
-			   
-			
-			/*if (temp.next.next.equals(null)){
-				temp.next.prev=null;
-				temp.next=null;
-			}
-			
-			else{
-				temp.next.next=null;
-				temp.next.prev=null;
-				temp.next=null;
-			  }*/
-
 		}
 	}
 
