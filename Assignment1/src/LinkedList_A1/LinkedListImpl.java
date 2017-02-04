@@ -74,7 +74,7 @@ public class LinkedListImpl implements LIST_Interface {
 
 	@Override
 	public boolean remove(int index) {
-		// TODO Auto-generated method stub
+		
 		if (index >= listSize || index < 0) {
 			return false;
 		}
@@ -100,7 +100,7 @@ public class LinkedListImpl implements LIST_Interface {
 
 	@Override
 	public Node get(int index) {
-		// TODO Auto-generated method stub
+		
 		
 		if(index<0 || index>= listSize || listSize==0){
 		return null;
@@ -133,7 +133,7 @@ public class LinkedListImpl implements LIST_Interface {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		
 		
 		if (listSize>0){
 			root.next=null;
