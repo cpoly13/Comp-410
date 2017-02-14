@@ -12,8 +12,25 @@ public class BST implements BST_Interface {
 
 @Override
 public boolean insert(String s) {
-	// TODO Auto-generated method stub
+	
+	
+	if(this.contains(s)){
 	return false;
+	}
+	
+	else{
+		BST_Node node=new BST_Node(s);
+		if(size==0){
+			root=node;
+			size++;
+			return true;
+		}
+		
+		else{
+			
+		}
+	}
+	
 }
 
 @Override
