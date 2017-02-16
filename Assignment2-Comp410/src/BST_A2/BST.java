@@ -27,6 +27,8 @@ public boolean insert(String s) {
 		}
 		
 		else{
+			size++;
+			return root.insertNode(node);
 			
 		}
 	}
@@ -59,20 +61,28 @@ public boolean empty() {
 
 @Override
 public boolean contains(String s) {
-	// TODO Auto-generated method stub
-	return false;
+	
+	if(size==0){
+		return false;
+	}
+	
+	else{
+		
+		return root.containsNode(s);
+	}
+	
 }
 
 @Override
 public int size() {
-	// TODO Auto-generated method stub
-	return 0;
+	
+	return size;
 }
 
 @Override
 public int height() {
 	// TODO Auto-generated method stub
-	return 0;
+	return root.getHeight();
 }
 
 }
