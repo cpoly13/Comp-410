@@ -43,20 +43,30 @@ public boolean remove(String s) {
 
 @Override
 public String findMin() {
-	// TODO Auto-generated method stub
+
+	if(size==0){
 	return null;
+	}
+	
+	return root.findMin().data;
+	
 }
 
 @Override
 public String findMax() {
-	// TODO Auto-generated method stub
+	if (size==0){
 	return null;
+	}
+	return root.findMax().data;
 }
 
 @Override
 public boolean empty() {
-	// TODO Auto-generated method stub
-	return false;
+	
+	
+	return (size==0);
+		
+	
 }
 
 @Override
@@ -81,7 +91,7 @@ public int size() {
 
 @Override
 public int height() {
-	// TODO Auto-generated method stub
+	
 	return root.getHeight();
 }
 
