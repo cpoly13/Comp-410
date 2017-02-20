@@ -122,35 +122,38 @@ public class BST_Node {
 	}
 
 	public boolean removeNode(String s) {
-		
 
-		
-
-		if (!this.data.equals(s)) {
+		if (!this.data.equals(s)) {  //this block is for when the node in not what needs to be removed
 
 			if (right == null && left == null) {
 				return false;
 			}
 
 			else if (s.compareTo(data) > 0) {
-				
-					return right.removeNode(s);
-				
+
+				if (right == null) {
+					return false;
+				}
+				return right.removeNode(s);
+
 			}
 
-			else{
-			
-				
-					return left.removeNode(s);
+			else {
+
+				if (left == null) {
+					return false;
+				}
+
+				return left.removeNode(s);
 
 			}
 
 		}
 
-		else {
+		else {           //this block if for a node that does need to be removed
 
 			if (right == null && left == null) {
-				if (parent.left !=null && parent.left.equals(this)) {
+				if (parent.left != null && parent.left.equals(this)) {
 					parent.left = null;
 					return true;
 				}
@@ -170,7 +173,7 @@ public class BST_Node {
 			}
 
 			if (left != null) {
-				if (parent.left!= null && parent.left.equals(this)) {
+				if (parent.left != null && parent.left.equals(this)) {
 					parent.left = left;
 					left.parent = parent;
 					return true;
@@ -184,7 +187,7 @@ public class BST_Node {
 			}
 
 			else {
-				if (parent.left != null &&parent.left.equals(this)) {
+				if (parent.left != null && parent.left.equals(this)) {
 					parent.left = right;
 					right.parent = parent;
 					return true;
@@ -198,7 +201,7 @@ public class BST_Node {
 			}
 
 		}
-		
+
 	}
 
 	public BST_Node findMin() {
