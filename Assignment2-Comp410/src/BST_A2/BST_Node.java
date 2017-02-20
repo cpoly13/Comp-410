@@ -4,9 +4,11 @@ public class BST_Node {
 	String data;
 	BST_Node left;
 	BST_Node right;
+	BST_Node parent;
 
-	BST_Node(String data) {
+	BST_Node(String data, BST_Node parent) {
 		this.data = data;
+		this.parent = parent;
 	}
 
 	// --- used for testing ----------------------------------------------
@@ -70,9 +72,11 @@ public class BST_Node {
 	public boolean insertNode(BST_Node n) {
 		if (left == null && right == null) {
 			if (n.getData().compareTo(data) < 0) {
+				n.parent = this;
 				left = n;
 				return true;
 			} else {
+				n.parent = this;
 				right = n;
 				return true;
 			}
@@ -80,11 +84,13 @@ public class BST_Node {
 
 		else if (left == null) {
 			if (n.getData().compareTo(data) < 0) {
+				n.parent = this;
 				left = n;
 				return true;
 			}
 
 			else {
+				
 				return right.insertNode(n);
 
 			}
@@ -92,6 +98,7 @@ public class BST_Node {
 
 		else if (right == null) {
 			if (n.getData().compareTo(data) > 0) {
+				n.parent = this;
 				right = n;
 				return true;
 			}
@@ -100,7 +107,9 @@ public class BST_Node {
 				return left.insertNode(n);
 
 			}
-		} else {
+		}
+
+		else {
 			if (n.getData().compareTo(data) > 0) {
 				return right.insertNode(n);
 
@@ -113,24 +122,105 @@ public class BST_Node {
 	}
 
 	public boolean removeNode(String s) {
+		BST_Node temp;
+
+		temp = this;
+
+		if (this.data != s) {
+
+			if (right == null && left == null) {
+				return false;
+			} else if (s.compareTo(data) > 0) {
+				if (right != null) {
+					return right.removeNode(s);
+				}
+
+				else {
+					return left.removeNode(s);
+				}
+			}
+
+			else if (s.compareTo(data) < 0) {
+				if (left != null) {
+					return left.removeNode(s);
+				}
+
+				else {
+					return right.removeNode(s);
+				}
+			}
+
+		}
+
+		else {
+
+			if (right == null && left == null) {
+				if (parent.left.equals(this)) {
+					parent.left = null;
+					return true;
+				}
+
+				else {
+					parent.right = null;
+					return true;
+				}
+			}
+
+			if (right != null && left != null) {
+				BST_Node maxHolder;
+				maxHolder = left.findMax();
+				this.data = maxHolder.data;
+				left.removeNode(data);
+				return true;
+			}
+
+			if (left != null) {
+				if (parent.left.equals(this)) {
+					parent.left = right;
+					right.parent = parent;
+					return true;
+				}
+
+				else {
+					parent.right = right;
+					right.parent = parent;
+					return true;
+				}
+			}
+
+			else {
+				if (parent.left.equals(this)) {
+					parent.left = left;
+					left.parent = parent;
+					return true;
+				}
+
+				else {
+					parent.right = left;
+					left.parent = parent;
+					return true;
+				}
+			}
+
+		}
 		return false;
 	}
 
 	public BST_Node findMin() {
-	
-		if (left!=null){
+
+		if (left != null) {
 			return left.findMin();
 		}
-		
+
 		return this;
 	}
 
 	public BST_Node findMax() {
-		
-		if(right!=null){
-		return right.findMax();
+
+		if (right != null) {
+			return right.findMax();
 		}
-		
+
 		return this;
 	}
 
