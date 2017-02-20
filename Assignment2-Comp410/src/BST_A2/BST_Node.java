@@ -90,7 +90,7 @@ public class BST_Node {
 			}
 
 			else {
-				
+
 				return right.insertNode(n);
 
 			}
@@ -122,32 +122,27 @@ public class BST_Node {
 	}
 
 	public boolean removeNode(String s) {
-		BST_Node temp;
+		
 
-		temp = this;
+		
 
-		if (this.data != s) {
+		if (!this.data.equals(s)) {
 
 			if (right == null && left == null) {
 				return false;
-			} else if (s.compareTo(data) > 0) {
-				if (right != null) {
-					return right.removeNode(s);
-				}
-
-				else {
-					return left.removeNode(s);
-				}
 			}
 
-			else if (s.compareTo(data) < 0) {
-				if (left != null) {
-					return left.removeNode(s);
-				}
-
-				else {
+			else if (s.compareTo(data) > 0) {
+				
 					return right.removeNode(s);
-				}
+				
+			}
+
+			else{
+			
+				
+					return left.removeNode(s);
+
 			}
 
 		}
@@ -155,7 +150,7 @@ public class BST_Node {
 		else {
 
 			if (right == null && left == null) {
-				if (parent.left.equals(this)) {
+				if (parent.left !=null && parent.left.equals(this)) {
 					parent.left = null;
 					return true;
 				}
@@ -175,21 +170,7 @@ public class BST_Node {
 			}
 
 			if (left != null) {
-				if (parent.left.equals(this)) {
-					parent.left = right;
-					right.parent = parent;
-					return true;
-				}
-
-				else {
-					parent.right = right;
-					right.parent = parent;
-					return true;
-				}
-			}
-
-			else {
-				if (parent.left.equals(this)) {
+				if (parent.left!= null && parent.left.equals(this)) {
 					parent.left = left;
 					left.parent = parent;
 					return true;
@@ -202,8 +183,22 @@ public class BST_Node {
 				}
 			}
 
+			else {
+				if (parent.left != null &&parent.left.equals(this)) {
+					parent.left = right;
+					right.parent = parent;
+					return true;
+				}
+
+				else {
+					parent.right = right;
+					right.parent = parent;
+					return true;
+				}
+			}
+
 		}
-		return false;
+		
 	}
 
 	public BST_Node findMin() {
