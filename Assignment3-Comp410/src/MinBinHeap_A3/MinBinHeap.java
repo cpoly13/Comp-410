@@ -19,4 +19,35 @@ public class MinBinHeap implements Heap_Interface {
   public EntryPair[] getHeap() { 
     return this.array;
   }
+
+@Override
+public void insert(EntryPair entry) {
+	// TODO Auto-generated method stub
+	
+	
+}
+
+@Override
+public void delMin() {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public EntryPair getMin() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public int size() {
+	// TODO Auto-generated method stub
+	return size;
+}
+
+@Override
+public void build(EntryPair[] entries) {
+	// TODO Auto-generated method stub
+	
+}
 }

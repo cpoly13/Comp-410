@@ -4,6 +4,7 @@ public class MinBinHeap_Playground {
   public static void main(String[] args){   
     //Add more tests as methods and call them here!!
     TestBuild();
+    testSize();
   }
   
   public static void TestBuild(){ 
@@ -22,6 +23,11 @@ public class MinBinHeap_Playground {
     mbh.build(collection);
     printHeapCollection(collection);
     printHeap(mbh.getHeap(), mbh.size());
+  }
+  
+  public static void testSize(){
+	  MinBinHeap sizeTest=new MinBinHeap();
+	  System.out.println("Size is: "+sizeTest.size());
   }
   
   public static void printHeapCollection(EntryPair[] e) { 
