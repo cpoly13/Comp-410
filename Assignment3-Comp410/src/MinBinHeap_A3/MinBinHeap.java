@@ -23,25 +23,24 @@ public class MinBinHeap implements Heap_Interface {
 
 @Override
 public void insert(EntryPair entry) {
-	// TODO Auto-generated method stub
-	hole=size+1;
-	if(size==0){
+	
+	size++;
+	hole=size;
+	if(size==1){
 		array[1]=entry;
+		
 	}
 	
 	else{
-		if(array[hole-1].getPriority()<=entry.getPriority()){
-			array[hole]=entry;
-		}
 		
-		else{
-			while(array[hole].getPriority()>entry.getPriority()){
+	
+			while(array[hole/2].getPriority()>entry.getPriority()){
 				hole=hole/2;
 			}
 			
 			array[hole]=entry;
 			
-		}
+		
 	}
 	
 	
@@ -49,25 +48,80 @@ public void insert(EntryPair entry) {
 
 @Override
 public void delMin() {
-	// TODO Auto-generated method stub
+	
+	if(size==0){		
+	}
+	
+	else{
+		hole=1;
+		EntryPair toHold=array[size];
+		array[size]=null;
+		size--;
+		
+		while(array[hole].getPriority()>array[hole+1].getPriority() || array[hole].getPriority()>array[hole+2].getPriority()){
+			hole=hole*2;
+		}
+		
+		array[1]=array[hole];
+		array[hole]=toHold;
+		
+	}
 	
 }
 
 @Override
 public EntryPair getMin() {
-	// TODO Auto-generated method stub
-	return null;
+	
+	if (size==0){
+		return null;
+	}
+	
+	return array[1];
 }
 
 @Override
 public int size() {
-	// TODO Auto-generated method stub
+	
 	return size;
 }
 
 @Override
 public void build(EntryPair[] entries) {
 	// TODO Auto-generated method stub
+	for(int i=0; i<entries.length;i++){
+		array[i+1]=entries[i];
+	}
+	size+=entries.length;
+	hole=size/2;
+	EntryPair toHold;
+	
+	for(;hole>=1;hole--){
+		try{
+		if(array[hole].getPriority()>array[hole*2+1].getPriority()){
+			toHold=array[hole];
+			array[hole]=array[hole*2+1];
+			array[hole*2+1]=toHold;
+			
+		}
+		}
+		catch (Exception e){
+			
+		}
+		try{
+			if(array[hole].getPriority()>array[hole*2].getPriority()){
+				toHold=array[hole];
+				array[hole]=array[hole*2];
+				array[hole*2]=toHold;
+				
+			}
+		}
+		catch (Exception e){
+				
+			}
+		}
+		
+	}
+	
 	
 }
-}
+
