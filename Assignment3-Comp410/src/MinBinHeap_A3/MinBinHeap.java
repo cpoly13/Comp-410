@@ -35,6 +35,7 @@ public void insert(EntryPair entry) {
 		
 	
 			while(array[hole/2].getPriority()>entry.getPriority()){
+				array[hole]=array[hole/2];
 				hole=hole/2;
 			}
 			
