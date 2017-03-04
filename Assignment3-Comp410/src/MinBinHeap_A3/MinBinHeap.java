@@ -40,8 +40,10 @@ public class MinBinHeap implements Heap_Interface {
 		else {
 
 			while (array[hole / 2].getPriority() > entry.getPriority()) {
+				
 				array[hole] = array[hole / 2];
 				hole = hole / 2;
+			
 			}
 
 			array[hole] = entry;
@@ -57,37 +59,12 @@ public class MinBinHeap implements Heap_Interface {
 		}
 
 		else {
-			hole = 1;
 			
-			EntryPair toHoldLast = array[size];
+			array[1]=array[size];
 			size--;
-			int next = 0;
-
-			for (; hole * 2 < size; hole = next) {
-
-				try {
-					if (array[hole * 2].getPriority() > array[hole * 2 + 1].getPriority()) {
-
-						array[hole] = array[hole * 2 + 1];
-						next = hole * 2 + 1;
-						continue;
-
-					}
-				}
-
-				catch (Exception e) {
-				}
-				try {
-
-					array[hole] = array[hole * 2];
-					next = hole * 2;
-
-				} catch (Exception e) {
-
-				}
-			}
+			downTheHole(1);
 			
-			array[hole]=toHoldLast;
+			
 
 		}
 
@@ -117,14 +94,34 @@ public class MinBinHeap implements Heap_Interface {
 		}
 		size += entries.length;
 		hole = size / 2 ;
-		EntryPair toHold;
+		
 
 		for (; hole >= 1; hole--) {
+			downTheHole(hole);
+		}
+
+	}
+	
+	public void downTheHole(int hole){
+		
+		EntryPair toHold = array[hole];
+		
+		int next = 0;
+
+		for (; hole * 2 <= size; hole = next) {
+
 			try {
-				if (array[hole].getPriority() > array[hole * 2 + 1].getPriority() && array[hole*2+1].getPriority()<array[hole*2].getPriority()) {
-					toHold = array[hole];
-					array[hole] = array[hole * 2 + 1];
-					array[hole * 2 + 1] = toHold;
+				if (array[hole * 2].getPriority() > array[hole * 2 + 1].getPriority()) {
+
+					if(array[hole].getPriority()>array[hole*2+1].getPriority()){
+					
+						toHold=array[hole];	
+						array[hole] = array[hole * 2 + 1];
+						array[hole*2+1]=toHold;
+					
+					next = hole * 2 + 1;
+					continue;
+					}
 
 				}
 			}
@@ -132,17 +129,25 @@ public class MinBinHeap implements Heap_Interface {
 			catch (Exception e) {
 			}
 			try {
-				if (array[hole].getPriority() > array[hole * 2].getPriority()) {
-					toHold = array[hole];
-					array[hole] = array[hole * 2];
-					array[hole * 2] = toHold;
-
+				if(array[hole].getPriority()>array[hole*2].getPriority()){
+				
+				toHold=array[hole];
+				array[hole] = array[hole * 2];
+				array[hole*2]=toHold;
+				next = hole * 2;
 				}
+				
+				else{
+					break;
+				}
+
 			} catch (Exception e) {
 
 			}
 		}
-
+		
+		array[hole]=toHold;
+		
 	}
 
 }
