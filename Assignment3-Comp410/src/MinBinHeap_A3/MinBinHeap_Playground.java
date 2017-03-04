@@ -3,8 +3,9 @@ package MinBinHeap_A3;
 public class MinBinHeap_Playground {
   public static void main(String[] args){   
     //Add more tests as methods and call them here!!
-    TestBuild();
-    testSize();
+    //TestBuild();
+    TestBuild2();
+    //testSize();
   }
   
   public static void TestBuild(){ 
@@ -23,6 +24,19 @@ public class MinBinHeap_Playground {
     mbh.build(collection);
     printHeapCollection(collection);
     printHeap(mbh.getHeap(), mbh.size());
+  }
+  
+  public static void TestBuild2(){
+	  MinBinHeap mbh= new MinBinHeap();
+	    EntryPair[] collection= new EntryPair[5];
+	    collection[0]=new EntryPair("a",5);
+	    collection[1]=new EntryPair("b",4);
+	    collection[2]=new EntryPair("c",3);
+	    collection[3]=new EntryPair("d",2);
+	    collection[4]=new EntryPair("e",1);
+	    mbh.build(collection);
+	    printHeapCollection(collection);
+	    printHeap(mbh.getHeap(), mbh.size());
   }
   
   public static void testSize(){

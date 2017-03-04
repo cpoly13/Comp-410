@@ -116,12 +116,12 @@ public class MinBinHeap implements Heap_Interface {
 			array[i + 1] = entries[i];
 		}
 		size += entries.length;
-		hole = size / 2 -1;
+		hole = size / 2 ;
 		EntryPair toHold;
 
 		for (; hole >= 1; hole--) {
 			try {
-				if (array[hole].getPriority() > array[hole * 2 + 1].getPriority()) {
+				if (array[hole].getPriority() > array[hole * 2 + 1].getPriority() && array[hole*2+1].getPriority()<array[hole*2].getPriority()) {
 					toHold = array[hole];
 					array[hole] = array[hole * 2 + 1];
 					array[hole * 2 + 1] = toHold;
