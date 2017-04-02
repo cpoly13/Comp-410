@@ -22,9 +22,7 @@ public class SPLT implements SPLT_Interface {
 			root = node;
 			size++;
 
-		}
-
-		else {
+		} else {
 
 			BST_Node toRoot = root.insertNode(node);
 
@@ -32,9 +30,7 @@ public class SPLT implements SPLT_Interface {
 				size++;
 			}
 			root = toRoot;
-
 		}
-
 	}
 
 	@Override
@@ -42,38 +38,28 @@ public class SPLT implements SPLT_Interface {
 		// TODO Auto-generated method stub
 
 		if (contains(s)) {
-
 			BST_Node l = root.left;
-
 			BST_Node r = root.right;
-			root.left = null;
-			root.right = null;
 			size--;
+
 			if (l != null) {
 				l.parent = null;
+				l = l.findMax();
 				root = l;
-				l.findMax();
 				l.right = r;
 
 				if (r != null) {
 					r.parent = l;
 				}
-
 			}
 
 			else {
 				if (r != null) {
 					r.parent = null;
 					root = r;
-					r.findMax();
 				}
-
 			}
-
-			
-
 		}
-
 	}
 
 	@Override
@@ -86,7 +72,6 @@ public class SPLT implements SPLT_Interface {
 		root = toRoot;
 
 		return toRoot.data;
-
 	}
 
 	@Override
@@ -99,7 +84,6 @@ public class SPLT implements SPLT_Interface {
 		root = toRoot;
 
 		return toRoot.data;
-
 	}
 
 	@Override
@@ -118,10 +102,8 @@ public class SPLT implements SPLT_Interface {
 		else {
 
 			BST_Node toRoot = root.containsNode(s);
-
 			root = toRoot;
 			return (toRoot.data.equals(s));
-
 		}
 
 	}

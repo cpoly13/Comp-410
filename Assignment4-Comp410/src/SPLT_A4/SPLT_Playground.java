@@ -17,6 +17,20 @@ public class SPLT_Playground {
     System.out.println("size is "+tree.size());
     
     printLevelOrder(tree);
+    
+    SPLT tree2= new SPLT();
+    tree2.insert("E");
+    tree2.insert("C");
+    tree2.insert("F");
+    tree2.insert("B");
+    tree2.insert("D");
+    tree2.remove("D");
+    
+    System.out.println("size is "+tree.size());
+    
+    printLevelOrder(tree);
+    
+    
   }
 
     static void printLevelOrder(SPLT tree){ 

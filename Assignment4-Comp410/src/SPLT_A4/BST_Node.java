@@ -21,16 +21,7 @@ public class BST_Node {
 		this.justMade = true;
 	}
 
-	BST_Node(String data, BST_Node left, BST_Node right, BST_Node par) { // feel
-																			// free
-																			// to
-																			// modify
-																			// this
-																			// constructor
-																			// to
-																			// suit
-																			// your
-																			// needs
+	BST_Node(String data, BST_Node left, BST_Node right, BST_Node par) { 
 		this.data = data;
 		this.left = left;
 		this.right = right;
@@ -59,25 +50,23 @@ public class BST_Node {
 	public BST_Node containsNode(String s) {
 
 		if (data.equals(s)) {
-			
 			return splay();
-			
 		}
+		
 		if (data.compareTo(s) > 0) {// s lexiconically less than data
-			if (left == null) {
-				
+		
+			if (left == null) {	
 				return splay();
 			}
 			return left.containsNode(s);
 		}
 		if (data.compareTo(s) < 0) {
-			if (right == null) {
-				
+			if (right == null) {				
 				return splay();
 			}
 			return right.containsNode(s);
 		}
-		return this; // shouldn't hit
+		return this;
 	}
 
 	public BST_Node insertNode(BST_Node n) {
@@ -111,9 +100,7 @@ public class BST_Node {
 			}
 
 			else {
-
 				return right.insertNode(n);
-
 			}
 		}
 
@@ -127,14 +114,12 @@ public class BST_Node {
 
 			else {
 				return left.insertNode(n);
-
 			}
 		}
 
 		else {
 			if (n.getData().compareTo(data) > 0) {
 				return right.insertNode(n);
-
 			}
 
 			else {
@@ -158,7 +143,6 @@ public class BST_Node {
 					return false;
 				}
 				return right.removeNode(s);
-
 			}
 
 			else {
@@ -166,9 +150,7 @@ public class BST_Node {
 				if (left == null) {
 					return false;
 				}
-
 				return left.removeNode(s);
-
 			}
 
 		}
@@ -280,18 +262,18 @@ public class BST_Node {
 
 			if (this.parent.parent == null) {// only one node away from root
 				if (parent.left != null && this.parent.left.equals(this)) {
-
-					rotateLeft(parent);
 					
-
+					rotateLeft(parent);
 				}
 
 				else if (parent.right != null && this.parent.right.equals(this)) {
+					
 					rotateRight(parent);
 					
 				}
 
 				else {
+					
 					System.out.println("Error with splay method rotation with root parent");
 					throw new RuntimeException("This is the spot");
 				}
@@ -301,19 +283,14 @@ public class BST_Node {
 			else { // all other general cases
 
 				if (parent.right != null && this.parent.right.equals(this) && parent.parent.left != null
-						&& this.parent.parent.left.equals(parent)) { // zig zag
-																		// Left
-																		// Right
-																		// (downwards)
-
+						&& this.parent.parent.left.equals(parent)) { // zig zag left right (downwards)
+																		
 					doubleRotateLeft(parent.parent);
 
 				}
 
 				else if (parent.left != null && this.parent.left.equals(this) && parent.parent.left != null
-						&& this.parent.parent.left.equals(parent)) {// zig zig
-																	// left left
-																	// (downwards)
+						&& this.parent.parent.left.equals(parent)) {// zig zig left left (downwards)															
 
 					rotateLeft(parent.parent);
 					rotateLeft(parent);
@@ -321,20 +298,12 @@ public class BST_Node {
 				}
 
 				else if (parent.left != null && this.parent.left.equals(this) && parent.parent.right != null
-						&& this.parent.parent.right.equals(parent)) { // zig
-					// zag
-					// right
-					// left
-					// downwards
+						&& this.parent.parent.right.equals(parent)) { // zig zag right left (downwards)
 
 					doubleRotateRight(parent.parent);
 				}
 
-				else if (this.parent.right.equals(this) && this.parent.parent.right.equals(parent)) {// zig
-																										// zig
-																										// right
-																										// right
-																										// (downwards)
+				else if (this.parent.right.equals(this) && this.parent.parent.right.equals(parent)) {// zig zig right right (downwards)															
 
 					rotateRight(parent.parent);
 					rotateRight(parent);
