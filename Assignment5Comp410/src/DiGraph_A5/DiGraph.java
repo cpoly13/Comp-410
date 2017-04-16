@@ -1,6 +1,8 @@
 package DiGraph_A5;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;;
 
 public class DiGraph implements DiGraph_Interface {
 
@@ -143,33 +145,64 @@ public class DiGraph implements DiGraph_Interface {
 
 		String[] toReturn = new String[(int) numNodes];
 		Node toHold;
-		int count=0;
-		
-		while (numNodes!=0){
-			toHold=findNodeIndegree0();
-			if(toHold==null){
-				return null;
+		int count = 0;
+		Queue<Node> q = new LinkedList<Node>();
+
+		for (Node value : nodeTable.values()) {
+			if (value.getInDegree() == 0) {
+				q.add(value);
 			}
-			toReturn[count]=toHold.getName();
-			delNode(toHold.getName());
-			count++;
 		}
 		
-	
+		
+
+		while (!q.isEmpty()) {
+			toReturn[count] = q.peek().getName();
+			HashMap<String, Edge> edgeIn = q.peek().getEdgesIn();
+			HashMap<String, Edge> edgeOut = q.peek().getEdgesOut();
+			delNode(q.remove().getName());
+			for (Edge in : edgeIn.values()) {
+
+				if (nodeTable.get(in.getSLabel()).getInDegree() == 0) {
+					q.add(nodeTable.get(in.getSLabel()));
+				}
+			}
+
+			for (Edge out : edgeOut.values()) {
+
+				if (nodeTable.get(out.getDLabel()).getInDegree() == 0) {
+					q.add(nodeTable.get(out.getDLabel()));
+				}
+			}
+			
+			count++;
+
+		}
+
+		/*
+		 * while (numNodes!=0){ toHold=findNodeIndegree0(); if(toHold==null){
+		 * return null; } toReturn[count]=toHold.getName();
+		 * delNode(toHold.getName()); count++; }
+		 */
+		
+		if(numNodes!=0){
+			return null;
+		}
+
 		return toReturn;
 	}
 
 	// rest of your code to implement the various operations
-	
-	private Node findNodeIndegree0(){
-		
-		Node toReturn=null;
-		for(Node value : nodeTable.values()){
-			if(value.getInDegree()==0){
-				toReturn=value;
+
+	private Node findNodeIndegree0() {
+
+		Node toReturn = null;
+		for (Node value : nodeTable.values()) {
+			if (value.getInDegree() == 0) {
+				toReturn = value;
 			}
 		}
-		
+
 		return toReturn;
 	}
 }
