@@ -14,6 +14,7 @@ public class DiGraphPlayground {
       // in order to convince yourself your code is producing
       // the correct behavior
     exTest();
+    exTest2();
     }
   
     public static void exTest(){
@@ -33,6 +34,35 @@ public class DiGraphPlayground {
       System.out.println("numNodes: "+d.numNodes());
       printTOPO(d.topoSort());
       
+    }
+    
+    public static void exTest2(){
+    	DiGraph t=new DiGraph();
+    	
+    	String name = "case: ";
+    	String name2 = "case: ";
+    	int id=0;
+    	
+    	for(int i=0; i<1000000; i++ ){
+    		
+    		name=name.concat(Integer.toString(i));
+    		t.addNode(i,name );
+    		name="case: ";
+    	}
+    	
+    	while(id<1000000){
+    		name=name.concat(Integer.toString(id));
+    		int toPass=id+1;
+    		name2=name2.concat(Integer.toString(toPass));
+    		t.addEdge(id, name , name2 , 0, null);
+    		name="case: ";
+    		name2="case: ";
+    		id++;
+    	}
+    	
+    	System.out.println("numEdges: "+t.numEdges());
+        System.out.println("numNodes: "+t.numNodes());
+        t.topoSort();
     }
     public static void printTOPO(String[] toPrint){
       System.out.print("TOPO Sort: ");
