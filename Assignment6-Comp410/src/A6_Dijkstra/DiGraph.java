@@ -1,4 +1,4 @@
-package DiGraph_A5;
+package A6_Dijkstra;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -192,6 +192,12 @@ public class DiGraph implements DiGraph_Interface {
 	
 	public HashMap <String, Node> getNodeTable(){
 		return nodeTable;
+	}
+
+	@Override
+	public ShortestPathInfo[] shortestPath(String label) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
