@@ -24,6 +24,18 @@ public class Node {
 		
 	}
 	
+	public Node (long id, int name){
+		
+		this.id=id;
+		this.name= Integer.toString(name);
+		edgeIn= new HashMap <String, Edge>();
+		edgeOut= new HashMap <String, Edge>();
+		inDegree=0;
+		known=false;
+		distance=Long.MAX_VALUE;
+		
+	}
+	
 	public long getId(){
 		return id;
 	}

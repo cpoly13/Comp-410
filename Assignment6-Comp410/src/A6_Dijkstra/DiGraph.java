@@ -2,7 +2,9 @@ package A6_Dijkstra;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.Queue;;
 
 public class DiGraph implements DiGraph_Interface {
@@ -56,6 +58,12 @@ public class DiGraph implements DiGraph_Interface {
 		return true;
 
 	}
+	
+	/*public boolean addNode(long idNum, int label){
+		String converted=Integer.toString(label);
+		addNode(idNum,converted);
+		return true;
+	}*/
 
 	@Override
 	public boolean addEdge(long idNum, String sLabel, String dLabel, long weight, String eLabel) {
@@ -201,7 +209,7 @@ public class DiGraph implements DiGraph_Interface {
 		Node toTest;
 
 		ShortestPathInfo[] dijkstrTable = new ShortestPathInfo[(int) numNodes];
-		
+
 		nodeTable.get(label).setDistance(0);
 		MinBinHeap priorityQ = new MinBinHeap();
 		priorityQ.insert(new EntryPair(label, 0));
@@ -212,63 +220,57 @@ public class DiGraph implements DiGraph_Interface {
 			priorityQ.delMin();
 
 			if (!nodeTable.get(n).isKnown()) {
+
 				nodeTable.get(n).setKnown(true);
 				dijkstrTable[count] = new ShortestPathInfo(nodeTable.get(n).getName(), nodeTable.get(n).getDistance());
 				count++;
-				
 
-				HashMap<String, Edge> edgeIn = nodeTable.get(n).getEdgesIn();
 				HashMap<String, Edge> edgeOut = nodeTable.get(n).getEdgesOut();
 
-				/*for (Edge in : edgeIn.values()) {
-					
-					toTest=nodeTable.get(in.getSLabel());
-
-					if (toTest.getDistance() < d + in.getWeight()) {
-
-						
-						priorityQ.insert(new EntryPair(toTest.getName(),
-								toTest.getDistance()));
-						
-						dijkstrTable[count] = new ShortestPathInfo (toTest.getName(), toTest.getDistance());
-						count++;
-
-					}
-					
-					else{
-						toTest.setDistance(d + in.getWeight());
-						priorityQ.insert(new EntryPair(toTest.getName(),
-								toTest.getDistance()));
-					}
-
-				}*/
-
 				for (Edge out : edgeOut.values()) {
-					
-					Node toTest2=nodeTable.get(out.getDLabel());
 
-					if (toTest2.getDistance() < d + out.getWeight()) {
-						
-						
+					Node toTest2 = nodeTable.get(out.getDLabel());
 
-						
-						priorityQ.insert(new EntryPair(toTest2.getName(),
-								toTest2.getDistance()));
-						
+					if (!toTest2.isKnown()) {
 
-					}
-					
-					else{
-						toTest2.setDistance(d + out.getWeight());
-						priorityQ.insert(new EntryPair(toTest2.getName(),
-								toTest2.getDistance()));
+						if (toTest2.getDistance() < d + out.getWeight()) {
+
+							priorityQ.insert(new EntryPair(toTest2.getName(), (int) toTest2.getDistance()));
+
+						}
+
+						else {
+							toTest2.setDistance(d + out.getWeight());
+							priorityQ.insert(new EntryPair(toTest2.getName(), (int) toTest2.getDistance()));
+						}
+
 					}
 
 				}
-				
-				
+
 			}
+
+			
+
 		}
+		
+		if (count + 1 < numNodes) {
+			Iterator<Entry<String, Node>> it = nodeTable.entrySet().iterator();
+
+			while (it.hasNext()) {
+				Node p = nodeTable.get(it.next().getKey());
+				if (!p.isKnown()) {
+
+					p.setKnown(true);
+					dijkstrTable[count] = new ShortestPathInfo(p.getName(), -1);
+					count++;
+
+				}
+			}
+			
+		}
+
+		
 		return dijkstrTable;
 	}
 
