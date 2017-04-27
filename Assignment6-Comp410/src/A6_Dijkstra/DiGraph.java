@@ -40,19 +40,18 @@ public class DiGraph implements DiGraph_Interface {
 		if (label == null) {
 			return false;
 		}
-		
-		if(!nodeNumList.add(idNum)){
+
+		if (!nodeNumList.add(idNum)) {
 			return false;
 		}
 
 		if (nodeTable.containsKey(label)) {
 			return false;
 		}
-		
-		
+
 		Node newNode = new Node(idNum, label);
 		nodeTable.put(label, newNode);
-		
+
 		numNodes++;
 		return true;
 
@@ -77,7 +76,7 @@ public class DiGraph implements DiGraph_Interface {
 			return false;
 		}
 
-		Edge newEdge = new Edge(idNum, sLabel, dLabel, 1, eLabel);
+		Edge newEdge = new Edge(idNum, sLabel, dLabel, weight, eLabel);
 		edgeTable.put(sLabel + dLabel, newEdge);
 		nodeTable.get(sLabel).addEdgeOut(newEdge);
 		nodeTable.get(dLabel).addEdgeIn(newEdge);
@@ -144,7 +143,7 @@ public class DiGraph implements DiGraph_Interface {
 
 		String[] toReturn = new String[(int) numNodes];
 		String name;
-		
+
 		int count = 0;
 		Queue<Node> q = new LinkedList<Node>();
 
@@ -153,18 +152,16 @@ public class DiGraph implements DiGraph_Interface {
 				q.add(value);
 			}
 		}
-		
-		
 
 		while (!q.isEmpty()) {
-			
-			name=q.peek().getName();
+
+			name = q.peek().getName();
 			toReturn[count] = name;
 			HashMap<String, Edge> edgeIn = q.peek().getEdgesIn();
 			HashMap<String, Edge> edgeOut = q.peek().getEdgesOut();
 			delNode(q.remove().getName());
 			for (Edge in : edgeIn.values()) {
-				
+
 				if (nodeTable.get(in.getSLabel()).getInDegree() == 0) {
 					q.add(nodeTable.get(in.getSLabel()));
 				}
@@ -176,12 +173,12 @@ public class DiGraph implements DiGraph_Interface {
 					q.add(nodeTable.get(out.getDLabel()));
 				}
 			}
-			
+
 			count++;
 
 		}
-		
-		if(numNodes!=0){
+
+		if (numNodes != 0) {
 			return null;
 		}
 
@@ -189,16 +186,90 @@ public class DiGraph implements DiGraph_Interface {
 	}
 
 	// rest of your code to implement the various operations
-	
-	public HashMap <String, Node> getNodeTable(){
+
+	public HashMap<String, Node> getNodeTable() {
 		return nodeTable;
 	}
 
 	@Override
 	public ShortestPathInfo[] shortestPath(String label) {
 		// TODO Auto-generated method stub
-		return null;
+
+		String n;
+		long d;
+		int count = 0;
+		Node toTest;
+
+		ShortestPathInfo[] dijkstrTable = new ShortestPathInfo[(int) numNodes];
+		
+		nodeTable.get(label).setDistance(0);
+		MinBinHeap priorityQ = new MinBinHeap();
+		priorityQ.insert(new EntryPair(label, 0));
+
+		while (priorityQ.size() > 0) {
+			n = priorityQ.getMin().value;
+			d = nodeTable.get(priorityQ.getMin().value).getDistance();
+			priorityQ.delMin();
+
+			if (!nodeTable.get(n).isKnown()) {
+				nodeTable.get(n).setKnown(true);
+				dijkstrTable[count] = new ShortestPathInfo(nodeTable.get(n).getName(), nodeTable.get(n).getDistance());
+				count++;
+				
+
+				HashMap<String, Edge> edgeIn = nodeTable.get(n).getEdgesIn();
+				HashMap<String, Edge> edgeOut = nodeTable.get(n).getEdgesOut();
+
+				/*for (Edge in : edgeIn.values()) {
+					
+					toTest=nodeTable.get(in.getSLabel());
+
+					if (toTest.getDistance() < d + in.getWeight()) {
+
+						
+						priorityQ.insert(new EntryPair(toTest.getName(),
+								toTest.getDistance()));
+						
+						dijkstrTable[count] = new ShortestPathInfo (toTest.getName(), toTest.getDistance());
+						count++;
+
+					}
+					
+					else{
+						toTest.setDistance(d + in.getWeight());
+						priorityQ.insert(new EntryPair(toTest.getName(),
+								toTest.getDistance()));
+					}
+
+				}*/
+
+				for (Edge out : edgeOut.values()) {
+					
+					Node toTest2=nodeTable.get(out.getDLabel());
+
+					if (toTest2.getDistance() < d + out.getWeight()) {
+						
+						
+
+						
+						priorityQ.insert(new EntryPair(toTest2.getName(),
+								toTest2.getDistance()));
+						
+
+					}
+					
+					else{
+						toTest2.setDistance(d + out.getWeight());
+						priorityQ.insert(new EntryPair(toTest2.getName(),
+								toTest2.getDistance()));
+					}
+
+				}
+				
+				
+			}
+		}
+		return dijkstrTable;
 	}
 
-	
 }

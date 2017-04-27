@@ -10,6 +10,8 @@ public class Node {
 	private HashMap <String,Edge>  edgeIn;
 	private HashMap <String,Edge> edgeOut;
 	private long inDegree;
+	private boolean known;
+	private long distance;
 	
 	public Node(long id, String name){
 		this.id=id;
@@ -17,6 +19,9 @@ public class Node {
 		edgeIn= new HashMap <String, Edge>();
 		edgeOut= new HashMap <String, Edge>();
 		inDegree=0;
+		known=false;
+		distance=Long.MAX_VALUE;
+		
 	}
 	
 	public long getId(){
@@ -25,6 +30,22 @@ public class Node {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public boolean isKnown(){
+		return known;
+	}
+	
+	public void setKnown(boolean k){
+		known=k;
+	}
+	
+	public long getDistance(){
+		return distance;
+	}
+	
+	public void setDistance(long d){
+		distance=d;
 	}
 	
 	public void addEdgeIn(Edge in){
