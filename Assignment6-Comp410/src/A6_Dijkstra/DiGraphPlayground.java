@@ -51,7 +51,18 @@ DiGraph test3=new DiGraph();
 	  
 	  DiGraph test4=new DiGraph();
 	  
-	  //test4.addNode(0, 0);
+	  for(int count=0; count<7; count++){
+		  test4.addNode(count, Integer.toString(count));
+	  }
+	  
+	  test4.addEdge(0, "4", "5", 2, null);
+	  test4.addEdge(1, "0", "5", 3, null);
+	  test4.addEdge(2, "3", "2", 6, null);
+	  test4.addEdge(3, "6", "1", 4, null);
+	  test4.addEdge(4, "4", "0", 1, null);
+	  test4.shortestPath("0");
+	  
+	  
 	  
 	  
   }

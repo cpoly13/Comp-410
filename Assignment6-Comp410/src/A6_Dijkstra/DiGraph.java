@@ -24,10 +24,10 @@ public class DiGraph implements DiGraph_Interface {
 		// we need to have the default constructor
 		// if you then write others, this one will still be there
 
-		nodeTable = new HashMap<String, Node>(100000);
-		edgeTable = new HashMap<String, Edge>(1000000);
-		nodeNumList = new HashSet<Long>(100000);
-		edgeNumList = new HashSet<Long>(1000000);
+		nodeTable = new HashMap<String, Node>(100);
+		edgeTable = new HashMap<String, Edge>(100);
+		nodeNumList = new HashSet<Long>(100);
+		edgeNumList = new HashSet<Long>(100);
 
 		numNodes = 0;
 		numEdges = 0;
@@ -58,12 +58,6 @@ public class DiGraph implements DiGraph_Interface {
 		return true;
 
 	}
-	
-	/*public boolean addNode(long idNum, int label){
-		String converted=Integer.toString(label);
-		addNode(idNum,converted);
-		return true;
-	}*/
 
 	@Override
 	public boolean addEdge(long idNum, String sLabel, String dLabel, long weight, String eLabel) {
@@ -201,12 +195,12 @@ public class DiGraph implements DiGraph_Interface {
 
 	@Override
 	public ShortestPathInfo[] shortestPath(String label) {
-		// TODO Auto-generated method stub
+		
 
 		String n;
 		long d;
 		int count = 0;
-		Node toTest;
+		
 
 		ShortestPathInfo[] dijkstrTable = new ShortestPathInfo[(int) numNodes];
 
@@ -250,10 +244,8 @@ public class DiGraph implements DiGraph_Interface {
 
 			}
 
-			
-
 		}
-		
+
 		if (count + 1 < numNodes) {
 			Iterator<Entry<String, Node>> it = nodeTable.entrySet().iterator();
 
@@ -267,10 +259,9 @@ public class DiGraph implements DiGraph_Interface {
 
 				}
 			}
-			
+
 		}
 
-		
 		return dijkstrTable;
 	}
 
